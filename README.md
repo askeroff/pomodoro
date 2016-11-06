@@ -10,6 +10,6 @@ The Pomodoro Technique is a time management method developed by Francesco Cirill
 Demo
 ====
 
-You can see how it work [here](https://askeroff.github.io/pomodoro/)
+You can see how it works [here](https://askeroff.github.io/pomodoro/).
 
 

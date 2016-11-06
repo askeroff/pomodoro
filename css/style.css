@@ -1,0 +1,40 @@
+#main {
+  margin-top: 2%;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.pomodoro-text {
+  font-size: 6em;
+  width: 200px;
+  height:  200px;
+  border-radius: 50%;
+  line-height: 200px;
+  margin: 15px auto;
+}
+
+#indicator {
+  padding-bottom: 10px;
+}
+
+.continuous-mode {
+  position: absolute;
+  right:  0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1050;
+  display: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+}
+
+
+

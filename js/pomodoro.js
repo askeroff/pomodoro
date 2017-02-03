@@ -79,13 +79,16 @@ $(document).ready(function() {
 
   function updateTime() { // in local storage, checking the date
     var currentTime = new Date();
-    if(localStorage.getItem("date") == undefined) {
+    var oldDate = Date.parse(localStorage.getItem("date"));
+    oldDate = new Date(oldDate);
+    if(localStorage.getItem("date") == null) {
       var currentTime = new Date();
       localStorage.setItem("date", currentTime);
-    } else if(currentTime > localStorage.getItem("date")) {
+    } else if(currentTime > oldDate) {
       localStorage.setItem("pomodoros", 0);
-      localStorage.setItem("date", currentTime);
       localStorage.setItem("howMuchTime", 0);
+      localStorage.setItem("date", currentTime);
+      
     } 
   }
 

@@ -8,8 +8,8 @@ $(document).ready(function() {
   workOn = false,
   audio = new Audio('files/sound.mp3')
   timerID = null,
-  pomodoros = localStorage.getItem("pomodoros") == undefined ? 0 : localStorage.getItem("pomodoros"),
-  spentTime = localStorage.getItem("howMuchTime");
+  pomodoros = localStorage.getItem("pomodoros") == null ? 0 : localStorage.getItem("pomodoros"),
+  spentTime = localStorage.getItem("howMuchTime") == null ? 0 : localStorage.getItem("howMuchTime");
 
   $(".pomodoros").html(pomodoros);
   $(".timespent").html(spentTime + " mins.");

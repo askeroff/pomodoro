@@ -30,11 +30,15 @@
   display: none;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  height: 60px;
+.pomodoros-count {
+  margin: 15px 0px;
+  padding: 15px 0px;
+  font-size: 1.4em;
 }
+
+
+
+
 
 
 

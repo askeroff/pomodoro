@@ -7,7 +7,12 @@ $(document).ready(function() {
   soundMode = true,
   workOn = false,
   audio = new Audio('files/sound.mp3')
-  timerID = null;
+  timerID = null,
+  pomodoros = localStorage.getItem("pomodoros") == undefined ? 0 : localStorage.getItem("pomodoros"),
+  spentTime = localStorage.getItem("howMuchTime");
+
+  $(".pomodoros").html(pomodoros);
+  $(".timespent").html(spentTime + " mins.");
 
   function renderTime(duration) {
       var minutes, seconds;
@@ -60,11 +65,30 @@ $(document).ready(function() {
         timer = duration;
         reset();
         continuousModeCheck();
-        //pomodoroTimer(pomodoroDefault - 1);
       }
 
     }, 1000);
   }
+
+  function updatePomodoros(duration) {
+      localStorage.setItem("pomodoros", ++pomodoros);
+      localStorage.setItem("howMuchTime", parseInt(spentTime) + parseInt((duration + 1)/60));
+      $(".pomodoros").html(pomodoros);
+      $(".timespent").html(spentTime + " mins.");
+  }
+
+  function updateTime() { // in local storage, checking the date
+    var currentTime = new Date();
+    if(localStorage.getItem("date") == undefined) {
+      var currentTime = new Date();
+      localStorage.setItem("date", currentTime);
+    } else if(currentTime > localStorage.getItem("date")) {
+      localStorage.setItem("pomodoros", 0);
+      localStorage.setItem("date", currentTime);
+      localStorage.setItem("howMuchTime", zero);
+    } 
+  }
+
 
   function pomodoroTimer(duration) {
     
@@ -79,11 +103,12 @@ $(document).ready(function() {
       renderTime(timer);
 
       if(--timer < 0) {
+        updatePomodoros(duration);
+        updateTime();
         soundModeCheck();
         timer = duration;
         reset();
         continuousModeCheck();
-        //breakTimer(breakDefault - 1);
       }
 
     }, 1000);

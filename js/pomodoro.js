@@ -82,7 +82,7 @@ $(document).ready(function() {
     if(localStorage.getItem("date") == undefined) {
       var currentTime = new Date();
       localStorage.setItem("date", currentTime);
-    } else if(currentTime != localStorage.getItem("date")) {
+    } else if(currentTime > localStorage.getItem("date")) {
       localStorage.setItem("pomodoros", 0);
       localStorage.setItem("date", currentTime);
       localStorage.setItem("howMuchTime", 0);
@@ -166,6 +166,7 @@ $(document).ready(function() {
     }
   });
 
-  updateTime();
+  
   renderTime(pomodoroDefault);
+  updateTime();
 });

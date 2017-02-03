@@ -85,7 +85,7 @@ $(document).ready(function() {
     } else if(currentTime != localStorage.getItem("date")) {
       localStorage.setItem("pomodoros", 0);
       localStorage.setItem("date", currentTime);
-      localStorage.setItem("howMuchTime", zero);
+      localStorage.setItem("howMuchTime", 0);
     } 
   }
 

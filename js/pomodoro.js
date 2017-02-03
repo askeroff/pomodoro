@@ -166,5 +166,6 @@ $(document).ready(function() {
     }
   });
 
+  updateTime();
   renderTime(pomodoroDefault);
 });

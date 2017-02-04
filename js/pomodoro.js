@@ -79,16 +79,17 @@ $(document).ready(function() {
 
   function updateTime() { // in local storage, checking the date
     var currentTime = new Date();
+    currentTime.setHours(0,0,0,0);
     var oldDate = Date.parse(localStorage.getItem("date"));
     oldDate = new Date(oldDate);
     if(localStorage.getItem("date") == null) {
-      var currentTime = new Date();
       localStorage.setItem("date", currentTime);
     } else if(currentTime > oldDate) {
       localStorage.setItem("pomodoros", 0);
       localStorage.setItem("howMuchTime", 0);
       localStorage.setItem("date", currentTime);
-      
+      $(".pomodoros").html(pomodoros);
+      $(".timespent").html(spentTime + " mins.");
     } 
   }
 

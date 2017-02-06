@@ -11,8 +11,8 @@ $(document).ready(function() {
   pomodoros = localStorage.getItem("pomodoros") == null ? 0 : localStorage.getItem("pomodoros"),
   spentTime = localStorage.getItem("howMuchTime") == null ? 0 : localStorage.getItem("howMuchTime");
 
-  $(".pomodoros").html(pomodoros);
-  $(".timespent").html(spentTime + " mins.");
+
+
 
   function renderTime(duration) {
       var minutes, seconds;
@@ -74,6 +74,7 @@ $(document).ready(function() {
       localStorage.setItem("pomodoros", ++pomodoros);
       localStorage.setItem("howMuchTime", parseInt(spentTime) + parseInt((duration + 1)/60));
       $(".pomodoros").html(pomodoros);
+      $(".timespent").html(localStorage.getItem("howMuchTime") + " mins.");
   }
 
   function updateTime() { // in local storage, checking the date
@@ -90,7 +91,7 @@ $(document).ready(function() {
       $(".pomodoros").html(pomodoros);
       $(".timespent").html(spentTime + " mins.");
     } 
-    $(".timespent").html(localStorage.getItem("howMuchTime") + " mins.");
+    
   }
 
 

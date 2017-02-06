@@ -12,7 +12,8 @@ $(document).ready(function() {
   spentTime = localStorage.getItem("howMuchTime") == null ? 0 : localStorage.getItem("howMuchTime");
 
 
-
+  $(".pomodoros").html(pomodoros);
+  $(".timespent").html(spentTime + " mins.");
 
   function renderTime(duration) {
       var minutes, seconds;

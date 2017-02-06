@@ -74,7 +74,6 @@ $(document).ready(function() {
       localStorage.setItem("pomodoros", ++pomodoros);
       localStorage.setItem("howMuchTime", parseInt(spentTime) + parseInt((duration + 1)/60));
       $(".pomodoros").html(pomodoros);
-      $(".timespent").html(spentTime + " mins.");
   }
 
   function updateTime() { // in local storage, checking the date
@@ -91,6 +90,7 @@ $(document).ready(function() {
       $(".pomodoros").html(pomodoros);
       $(".timespent").html(spentTime + " mins.");
     } 
+    $(".timespent").html(spentTime + " mins.");
   }
 
 
@@ -107,8 +107,8 @@ $(document).ready(function() {
       renderTime(timer);
 
       if(--timer < 0) {
-        updatePomodoros(duration);
         updateTime();
+        updatePomodoros(duration);
         soundModeCheck();
         timer = duration;
         reset();

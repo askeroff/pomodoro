@@ -90,7 +90,7 @@ $(document).ready(function() {
       $(".pomodoros").html(pomodoros);
       $(".timespent").html(spentTime + " mins.");
     } 
-    $(".timespent").html(spentTime + " mins.");
+    $(".timespent").html(localStorage.getItem("howMuchTime") + " mins.");
   }
 
 

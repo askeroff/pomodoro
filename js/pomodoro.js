@@ -1,157 +1,173 @@
 $(document).ready(function() {
-  // Declaring Global Variables
-  var pomodoroDefault = 25 * 60, // minutes by default
-  breakDefault = 5 * 60,
-  pomodoroText = $(".pomodoro-text"),
-  continuousMode = false,
-  soundMode = true,
-  workOn = false,
-  audio = new Audio('files/sound.mp3')
-  timerID = null,
-  pomodoros = localStorage.getItem("pomodoros") == null ? 0 : localStorage.getItem("pomodoros"),
-  spentTime = localStorage.getItem("howMuchTime") == null ? 0 : localStorage.getItem("howMuchTime");
+
+  let state = JSON.parse(localStorage.getItem("settings"));
+  let trackingSettings;
+
+  if(JSON.parse(localStorage.getItem("tracking")) == null) {
+    trackingSettings = {
+      pomodorosToday: 0,
+      timeSpentToday: 0, 
+      date: null
+    };
+    localStorage.setItem("tracking", JSON.stringify(trackingSettings));
+  } else {
+    trackingSettings = JSON.parse(localStorage.getItem("tracking"));
+  }
 
 
-  $(".pomodoros").html(pomodoros);
-  $(".timespent").html(spentTime + " mins.");
+  if(state == null) {
+    let defaultSettings = {
+      workDuration: 25 * 60,
+      breakDuration: 5 * 60,
+      continuousMode: false,
+      soundMode: true,
+      workOn: false
+    };
+    localStorage.setItem("settings", JSON.stringify(defaultSettings));  
+    state = defaultSettings;
+  }
 
+
+
+  const audio = new Audio('files/sound.mp3');
+  let timerID = null;
+
+  // grabbing DOM elements
+  const pomodoroText = $(".pomodoro-text");
+  const indicator =  $("#indicator");
+
+  // rendering time in HTML page
+  
   function renderTime(duration) {
-      var minutes, seconds;
-      minutes = parseInt(duration/60, 10);
-      seconds = parseInt(duration%60, 10);
+    if(isNaN(duration)) {
+      console.log("NEED A NUMBER in renderTime()");
+      return;
+    }
 
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
+    let minutes, seconds;
 
-      pomodoroText.html(minutes + ":" + seconds);
+    minutes = parseInt(duration/60, 10);
+    seconds = parseInt(duration%60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    pomodoroText.html(minutes + ":" + seconds);
+  }
+
+  function renderTracking() {
+    $(".pomodoros").html(trackingSettings.pomodorosToday);
+    $(".timespent").html(trackingSettings.timeSpentToday + " mins.");
+  }
+
+  function checkForTime() {
+
+    let currentTime = new Date();
+    currentTime.setHours(0,0,0,0);
+    let oldDate = trackingSettings.date;
+
+    if(oldDate == null) {
+      trackingSettings.date = currentTime;
+      localStorage.setItem("tracking", JSON.stringify(trackingSettings));
+      return;
+    }
+
+    if(currentTime > new Date(oldDate)) {
+      trackingSettings.pomodorosToday = 0;
+      trackingSettings.timeSpentToday = 0;
+      trackingSettings.date = currentTime;
+      localStorage.setItem("tracking", JSON.stringify(trackingSettings));
+    }
+
+  }
+
+  function updateTracking(duration) {
+    if(state.workOn == true) {
+      trackingSettings.pomodorosToday += 1;
+      console.log(parseInt((duration + 1)/60));
+      trackingSettings.timeSpentToday += parseInt((duration + 1)/60);
+      localStorage.setItem("tracking", JSON.stringify(trackingSettings)); 
+      renderTracking();  
+    }
   }
 
 
   function reset() {
-    renderTime(pomodoroDefault);
-    clearTimeout(timerID);
+    renderTime(state.workDuration);
+    clearInterval(timerID);
+  }
+
+  function continuousModeCheck() {
+    if(state.continuousMode == false) {
+      $("#continuousModeBlock").show();
+      return;
+    }
+    okHandle();
   }
 
   function soundModeCheck() {
-    if(soundMode == true) {
-      audio.play();
-    } else {
-      return null;
-    }    
+    return state.soundMode === true ? audio.play() : null;
+  }  
+
+
+
+  function workTimer() {
+    state.workOn = true;
+    indicator.text("Work");
+    timer(state.workDuration - 1);
   }
 
-
-  function continuousModeCheck() {
-    if(continuousMode == false) {
-      $("#continuousModeBlock").show();
-    } else if(workOn == true) {
-      $("#continuousModeBlock").hide();
-      breakTimer(breakDefault - 1);
-      } else {
-      $("#continuousModeBlock").hide();
-      pomodoroTimer(pomodoroDefault - 1);
-    }
+  function breakTimer() {
+    state.workOn = false;
+    indicator.text("Breeeeaak!");
+    timer(state.breakDuration - 1);
   }
 
-  function breakTimer(duration) {
-    var timer = duration;
-    workOn = false;
-    $("#indicator").text("Break");
-
-    timerID = setInterval(function() {
-      renderTime(timer);
-
-      if(--timer < 0) {
-        soundModeCheck();
-        timer = duration;
-        reset();
-        continuousModeCheck();
-      }
-
-    }, 1000);
-  }
-
-  function updatePomodoros(duration) {
-      localStorage.setItem("pomodoros", ++pomodoros);
-      localStorage.setItem("howMuchTime", parseInt(spentTime) + parseInt((duration + 1)/60));
-      $(".pomodoros").html(pomodoros);
-      $(".timespent").html(localStorage.getItem("howMuchTime") + " mins.");
-  }
-
-  function updateTime() { // in local storage, checking the date
-    var currentTime = new Date();
-    currentTime.setHours(0,0,0,0);
-    var oldDate = Date.parse(localStorage.getItem("date"));
-    oldDate = new Date(oldDate);
-    if(localStorage.getItem("date") == null) {
-      localStorage.setItem("date", currentTime);
-    } else if(currentTime > oldDate) {
-      localStorage.setItem("pomodoros", 0);
-      localStorage.setItem("howMuchTime", 0);
-      localStorage.setItem("date", currentTime);
-      $(".pomodoros").html(pomodoros);
-      $(".timespent").html(spentTime + " mins.");
-    } 
-    
-  }
-
-
-  function pomodoroTimer(duration) {
-    
-    var timer = duration;
-    workOn = true;
-
-    $("#start").text("Reset");
-    $("#indicator").text("Work");
-
-    timerID = setInterval(function() {
-      
-      renderTime(timer);
-
-      if(--timer < 0) {
-        updateTime();
-        updatePomodoros(duration);
-        soundModeCheck();
-        timer = duration;
-        reset();
-        continuousModeCheck();
-      }
-
-    }, 1000);
-  }
- 
-  // Events
-
-  $("#start").click(function() {
-    if(timerID != undefined) {
+  function timer(duration) {
+    let myTimer = duration;
+   
+    if(timerID != null) {
       reset();
-      pomodoroTimer(pomodoroDefault - 1);
-    } else {
-      pomodoroTimer(pomodoroDefault - 1);
     }
-  });
 
-  $("#okButton").click(function() {
-    if(workOn == true) {
-      $("#continuousModeBlock").hide();
-      breakTimer(breakDefault - 1);
-    } else {
-      $("#continuousModeBlock").hide();
-      pomodoroTimer(pomodoroDefault - 1);
-    }
-  });
+    timerID = setInterval(function() {
 
-  $("#stop").click(function() {
-    workOn = false;
-    $("#start").text("Start");
-    $("#indicator").text("Work");
+      renderTime(myTimer);
+
+      if(--myTimer < 0) {
+        myTimer = duration;
+        if(state.workOn == true) {
+          updateTracking(state.workDuration);
+          checkForTime();
+        }
+        reset();
+        soundModeCheck();
+        continuousModeCheck();
+        return;
+      }
+    }, 1000);
+
+  }
+
+  function startHandle() {
+      workTimer(state.workDuration - 1);   
+  }
+
+  function stopHandle() {
+    state.workOn = false;
     reset();
-  });
+    indicator.text("-__-");
+  }
 
-  $("#settings").click(function() {
-    $("#workTime").val(pomodoroDefault / 60);
-    $("#breakTime").val(breakDefault / 60);
-  });
+  function okHandle() {
+    if(state.workOn == true) {
+      $("#continuousModeBlock").hide();
+      breakTimer(state.breakDuration - 1);
+    } else {
+      $("#continuousModeBlock").hide();
+      workTimer(state.workDuration - 1);
+    }
+  }
 
   $("#changeSettings").click(function() {
     if(isNaN($("#workTime").val()) || isNaN($("#breakTime").val())) {
@@ -164,15 +180,30 @@ $(document).ready(function() {
       alert("Break Time bounds are between 1 and 30 minutes");
       return 1;
     } else {
-      pomodoroDefault = $("#workTime").val() * 60;
-      breakDefault = $("#breakTime").val() * 60;
-      continuousMode = $("#continuousMode").is(":checked");
-      soundMode = $("#soundMode").is(":checked")
-      renderTime(pomodoroDefault);      
+      state.workDuration = $("#workTime").val() * 60;
+      state.breakDuration = $("#breakTime").val() * 60;
+      state.continuousMode = $("#continuousMode").is(":checked");
+      state.soundMode = $("#soundMode").is(":checked")
+      renderTime(state.workDuration);
+      localStorage.setItem("settings", JSON.stringify(state));    
     }
   });
 
+  // Events
   
-  renderTime(pomodoroDefault);
-  updateTime();
+  $("#start").click(startHandle);  
+
+  $("#stop").click(stopHandle);  
+
+  $("#okButton").click(okHandle);
+
+  $("#settings").click(function() {
+    $("#workTime").val(0);
+    $("#breakTime").val(0);
+  });
+
+  renderTime(state.workDuration);
+  renderTracking();
+  checkForTime();
+
 });

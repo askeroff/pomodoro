@@ -87,7 +87,7 @@ $(document).ready(function() {
       console.log(parseInt((duration + 1)/60));
       trackingSettings.timeSpentToday += parseInt((duration + 1)/60);
       localStorage.setItem("tracking", JSON.stringify(trackingSettings)); 
-      renderTracking();  
+     // renderTracking();  
     }
   }
 

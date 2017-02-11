@@ -9,11 +9,10 @@
 
 .pomodoro-text {
   font-size: 6em;
-  width: 200px;
-  height:  200px;
-  border-radius: 50%;
-  line-height: 200px;
-  margin: 15px auto;
+  width: 250px;
+  height:  250px;
+  line-height: 300px;
+  margin:  auto;
 }
 
 #indicator {
@@ -34,6 +33,35 @@
   margin: 15px 0px;
   padding: 15px 0px;
   font-size: 1.4em;
+  text-align: center;
+}
+
+.pomodoros-count p{
+  background: #2f4f4f;
+}
+
+@media screen and (max-device-width: 650px) 
+
+  {
+  a#start, a#stop {
+    height: 160px;
+    line-height: 160px;
+    font-size: 60px;
+    padding-top: 0px;
+    margin-bottom: 50px;
+  }
+
+  .pomodoros-count p{
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  .pomodoro-text {
+    font-size: 8em;
+  }
+
+  .glyphicon {
+    font-size: 80px;
+  }
 }
 
 

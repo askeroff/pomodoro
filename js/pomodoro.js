@@ -198,8 +198,8 @@ $(document).ready(function() {
   $("#okButton").click(okHandle);
 
   $("#settings").click(function() {
-    $("#workTime").val(state.workDuration);
-    $("#breakTime").val(state.breakDuration);
+    $("#workTime").val(state.workDuration / 60);
+    $("#breakTime").val(state.breakDuration / 60);
   });
 
   renderTime(state.workDuration);

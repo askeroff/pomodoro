@@ -78,7 +78,7 @@ $(document).ready(function() {
       trackingSettings.date = currentTime;
       localStorage.setItem("tracking", JSON.stringify(trackingSettings));
     }
-
+    renderTracking();
   }
 
   function updateTracking(duration) {
@@ -203,7 +203,6 @@ $(document).ready(function() {
   });
 
   renderTime(state.workDuration);
-  renderTracking();
   checkForTime();
-
+  
 });

@@ -62,6 +62,51 @@
   .glyphicon {
     font-size: 80px;
   }
+
+  .modal-title {
+    font-size: 60px;
+    padding: 20px;
+  }
+
+  .control-label {
+    font-size: 60px;
+    display: block;
+    float: none;
+    text-align: center;
+  }
+
+  #workTime, #breakTime {
+    float: none;
+    height: 60px;
+    font-size: 60px;
+    padding: 40px 20px;
+    display: block;
+    margin-top: 10px;
+  }
+
+  .checkbox {
+    font-size: 45px;
+  }
+
+  .checkbox input[type="checkbox"] {
+    width: 40px;
+    height: 40px;
+    margin-left: -45px;
+    margin-top: 15px;
+  }
+
+  #changeSettings {
+    height: 70px;
+    width: 260px;
+    font-size: 35px;
+  }
+
+  .modal-body {
+    position: relative;
+    padding: 20px;
+    font-size: 45px;
+}
+
 }
 
 

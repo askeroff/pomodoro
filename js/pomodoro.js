@@ -200,6 +200,8 @@ $(document).ready(function() {
   $("#settings").click(function() {
     $("#workTime").val(state.workDuration / 60);
     $("#breakTime").val(state.breakDuration / 60);
+    $("#continuousMode").prop('checked', state.continuousMode);
+    $("#soundMode").prop('checked', state.soundMode);
   });
 
   renderTime(state.workDuration);

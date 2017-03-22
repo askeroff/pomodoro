@@ -57,7 +57,13 @@ $(document).ready(function() {
 
   function renderTracking() {
     $(".pomodoros").html(trackingSettings.pomodorosToday);
-    $(".timespent").html(trackingSettings.timeSpentToday + " mins.");
+    if(trackingSettings.timeSpentToday > 60) {
+      const hours = trackingSettings.timeSpentToday / 60;
+      const minutes = trackingSettings.timeSpentToday % 60;
+      $(".timespent").html(`${hours} hrs ${minutes} mins.`);
+    } else {
+      $(".timespent").html(`${trackingSettings.timeSpentToday} mins.`);
+    }
   }
 
   function checkForTime() {
@@ -84,10 +90,9 @@ $(document).ready(function() {
   function updateTracking(duration) {
     if(state.workOn == true) {
       trackingSettings.pomodorosToday += 1;
-      console.log(parseInt((duration + 1)/60));
       trackingSettings.timeSpentToday += parseInt((duration + 1)/60);
       localStorage.setItem("tracking", JSON.stringify(trackingSettings)); 
-     // renderTracking();  
+       
     }
   }
 

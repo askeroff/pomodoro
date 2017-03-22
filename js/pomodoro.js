@@ -58,7 +58,7 @@ $(document).ready(function() {
   function renderTracking() {
     $(".pomodoros").html(trackingSettings.pomodorosToday);
     if(trackingSettings.timeSpentToday > 60) {
-      const hours = trackingSettings.timeSpentToday / 60;
+      const hours = Math.floor(trackingSettings.timeSpentToday / 60);
       const minutes = trackingSettings.timeSpentToday % 60;
       $(".timespent").html(`${hours} hrs ${minutes} mins.`);
     } else {

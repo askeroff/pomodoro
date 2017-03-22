@@ -14,6 +14,8 @@ $(document).ready(function() {
     trackingSettings = JSON.parse(localStorage.getItem("tracking"));
   }
 
+  // test comment
+  // for no purpose regarding this app
 
   if(state == null) {
     let defaultSettings = {

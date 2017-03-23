@@ -57,11 +57,13 @@ $(document).ready(function() {
 
   function renderTracking() {
     $(".pomodoros").html(trackingSettings.pomodorosToday);
-    if(trackingSettings.timeSpentToday > 60) {
-      const hours = Math.floor(trackingSettings.timeSpentToday / 60);
-      const minutes = trackingSettings.timeSpentToday % 60;
-      $(".timespent").html(`${hours} hrs ${minutes} mins.`);
-    } else {
+    const hours = Math.floor(trackingSettings.timeSpentToday / 60);
+    const minutes = trackingSettings.timeSpentToday % 60;
+    if(trackingSettings.timeSpentToday > 60 && trackingSettings.timeSpentToday < 120) {
+      $(".timespent").html(`${hours} hr. ${minutes} mins.`);
+    } else if(trackingSettings.timeSpentToday >= 120) {
+      $(".timespent").html(`${hours} hrs. ${minutes} mins.`);
+    }else {
       $(".timespent").html(`${trackingSettings.timeSpentToday} mins.`);
     }
   }

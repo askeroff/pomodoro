@@ -34,7 +34,7 @@ $(document).ready(function() {
 
   // grabbing DOM elements
   const pomodoroText = $(".pomodoro-text");
-  const indicator =  $("#indicator");
+  const indicator =  $(".pomodoro-indicator");
 
   // rendering time in HTML page
   
@@ -60,11 +60,11 @@ $(document).ready(function() {
     const hours = Math.floor(trackingSettings.timeSpentToday / 60);
     const minutes = trackingSettings.timeSpentToday % 60;
     if(trackingSettings.timeSpentToday > 60 && trackingSettings.timeSpentToday < 120) {
-      $(".timespent").html(`${hours} hr. ${minutes} mins.`);
+      $(".timespent").html(`${hours} <sub>hr</sub> ${minutes} <sub>mins</sub>`);
     } else if(trackingSettings.timeSpentToday >= 120) {
-      $(".timespent").html(`${hours} hrs. ${minutes} mins.`);
+      $(".timespent").html(`${hours} <sub>hrs</sub> ${minutes} <sub>mins</sub>`);
     }else {
-      $(".timespent").html(`${trackingSettings.timeSpentToday} mins.`);
+      $(".timespent").html(`${trackingSettings.timeSpentToday} <sub>mins</sub>`);
     }
   }
 

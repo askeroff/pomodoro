@@ -1,27 +1,36 @@
 #main {
-  margin-top: 2%;
+  margin-top: 3rem;
 }
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
+h1 {
+  margin: 0;
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
 }
 
 .pomodoro-text {
-  font-size: 6em;
+  margin: 3rem auto;
   width: 250px;
-  height:  250px;
-  line-height: 300px;
-  margin:  auto;
+  font-size: 10rem;
+  text-align: center;
 }
 
-#indicator {
-  padding-bottom: 10px;
+.pomodoro-indicator {
+  margin-bottom: 3rem;
+  color: #00bc8c;
+  font-size: 39px;
+  text-align: center;
 }
 
 .continuous-mode {
   position: absolute;
-  right:  0;
+  right: 0;
   top: 0;
   left: 0;
   bottom: 0;
@@ -30,31 +39,60 @@
 }
 
 .pomodoros-count {
-  margin: 15px 0px;
-  padding: 15px 0px;
-  font-size: 1.4em;
+  color: rgba(182, 37, 22, .5);
+}
+
+.pomodoros-count .title {
+  margin-bottom: 3rem;
+  font-size: 4rem;
   text-align: center;
 }
 
-.pomodoros-count p{
-  background: #2f4f4f;
+.pomodoros-count .value {
+  font-size: 5rem;
+  text-align: center;
 }
 
-@media screen and (max-device-width: 650px) 
+.pomodoros-count .value sub {
+  font-size: 16px;
+}
 
-  {
+.pomodoro-buttons div a {
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 959px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 680px) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 380px) {
+  html {
+    font-size: 5px;
+  }
+}
+
+@media screen and (max-device-width: 650px) {
   a#start, a#stop {
     height: 160px;
     line-height: 160px;
     font-size: 60px;
-    padding-top: 0px;
+    padding-top: 0;
     margin-bottom: 50px;
   }
 
-  .pomodoros-count p{
+  .pomodoros-count p {
     font-size: 2.5em;
     margin-bottom: 20px;
   }
+
   .pomodoro-text {
     font-size: 8em;
   }
@@ -105,7 +143,7 @@
     position: relative;
     padding: 20px;
     font-size: 45px;
-}
+  }
 
 }
 

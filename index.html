@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pomodoro Clock</title>
+  <title class="pomodoro-text">Pomo. Clock</title>
+  <link rel="import" href="elements/elements.html">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="favicon.ico" rel="icon" type="image/x-icon" />
@@ -12,31 +13,42 @@
 </head>
 <body>
 
+    <!-- Contenedor  -->
   <div id="main" class='container'>
+
+      <!-- Título y dos botones -->
     <div class="row">
       <div class="pomodoro-time col-md-12">
         <h1 class="col-md-10">Pomodoro Clock</h1>
         <p class="col-md-2 btn-group pull-right">
-          <button type="button" data-toggle="modal" data-target="#modalInfo" 
+            <!-- Botón About -->
+          <button type="button" data-toggle="modal" data-target="#modalInfo"
                   class="btn btn-default" id="about" aria-label="Info">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
           </button>
-          <button type="button" data-toggle="modal" data-target="#myModal" 
+          <!-- Botón Settings -->
+          <button type="button" data-toggle="modal" data-target="#myModal"
                   class="btn btn-default" id="settings" aria-label="Settings">
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
           </button>
         </p>
       </div>
     </div>
-    
+
+    <!-- Cronómetro y estado -->
     <div class="row">
       <div class="col-md-12">
+          <!-- Cronómetro -->
         <h1 class="text-center pomodoro-text">&nbsp;</h1>
+        <!-- Descripción del estado -->
         <h1 class="text-center text-success" id="indicator">-__-</h1>
+        <!--  <h1 class="text-center text-success" id="pauseState">Pause ini</h1> -->
         <div class="text-center pomodoros-count">
+            <!-- Pomodoros de hoy -->
         <p>
         <strong>Whole pomodoros today: </strong><span class="pomodoros">0</span>
         </p>
+        <!-- Tiempode de enfoque -->
         <p>
         <strong>Today spent in focus:</strong> <span class="timespent">0 mins.</span>
         </p>
@@ -45,14 +57,22 @@
       </div >
     </div>
 
+        <!-- Botones de comando -->
     <div class="row">
       <div class="bs-component col-centered col-md-12">
-        <p class="col-md-6"><a href="#" id="start" class="btn btn-success btn-lg center-block">Start / Reset</a></p>
-        <p class="col-md-6"><a href="#" id="stop" class="btn btn-danger btn-lg center-block">Stop</a></p>
+          <!-- Botón de Start -->
+        <p class="col-md-3"><a href="#" id="start" class="btn btn-success btn-lg center-block">Start</a></p>
+         <!-- Botón de Pausa -->
+        <p class="col-md-3"><a href="#" id="pausa" class="btn btn-warning btn-lg center-block">Pause / Continue</a></p>
+         <!-- Botón de Stop -->
+        <p class="col-md-3"><a href="#" id="stop" class="btn btn-danger btn-lg center-block">Stop</a></p>
+         <!-- Botón de Next -->
+        <p class="col-md-3"><a href="#" id="next" class="btn btn-info btn-lg center-block">Next</a></p>
       </div>
     </div>
 
-    <!-- Modal Settings -->
+
+    <!-- Ventana Modal Settings -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalSettingsLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -63,19 +83,32 @@
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Work</label>
-                <div class="col-sm-10">
+                <label for="inputEmail3" class="col-sm-3 control-label">Work</label>
+                <div class="col-sm-8">
                   <input type="text" class="form-control" id="workTime" value="25">
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Break</label>
-                <div class="col-sm-10">
+                <label for="inputPassword3" class="col-sm-3 control-label">Break</label>
+                <div class="col-sm-8">
                   <input type="text" class="form-control" id="breakTime" value="5">
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <label for="longBreak" class="col-sm-3 control-label">Long break</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="longBreakTime" value="15">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="pomosToBreak" class="col-sm-3 control-label">Pomodoros to long break</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="pomosToLongBreak" value="4">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-10">
                   <div class="checkbox">
                     <label>
                       <input id="continuousMode" type="checkbox"> Continuous mode
@@ -97,7 +130,7 @@
       </div>
     </div>
 
-      <!-- Modal Info -->
+      <!-- Ventana Modal Info -->
   <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -106,7 +139,8 @@
           <h4 class="modal-title" id="modalInfoLabel">About</h4>
         </div>
         <div class="modal-body">
-          Made by <a href="https://github.com/askeroff">Javid Askerov</a>. Contact me at <a href="mailto:askerovlab@gmail.com">askerovlab@gmail.com</a>
+          Made by <a href="https://github.com/askeroff">Javid Askerov</a>. Contact him at <a href="mailto:askerovlab@gmail.com">askerovlab@gmail.com</a><br />
+          Forked by <a href="https://github.com/Patrickhamachado">Patrick Machado</a>. Contact me at <a href="mailto:patrickhamachado@hotmail.com">patrickhamachado@hotmail.com</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -131,7 +165,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
   </div>
 

@@ -1,6 +1,6 @@
 # Pomodoro Clock
 
-This is one of the many variations of pomodoro clocks. I coded it for practice within the [FreeCodeCamp](https://freecodecamp.com) curriculum. 
+Searching for a Pomodoro web to use, I found [this one](https://github.com/askeroff/pomodoro) for [Javid Askerov](https://github.com/askeroff). Then I forked and made some changes.
 
 Pomodoro Technique
 ==================
@@ -10,6 +10,4 @@ The Pomodoro Technique is a time management method developed by Francesco Cirill
 Demo
 ====
 
-You can see how it works [here](https://askeroff.github.io/pomodoro/).
-
-
+You can see how it works [here](https://patrickhamachado.github.io/pomodoro/).
